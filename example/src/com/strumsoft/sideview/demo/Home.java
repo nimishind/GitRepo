@@ -30,6 +30,7 @@ public class Home extends Activity {
         // @Override public void onClick(View v) {
         // ((SplitView)findViewById(R.id.split_view)).maximizeMainContent();
         // }
+        // 
         //
         // });
         //
