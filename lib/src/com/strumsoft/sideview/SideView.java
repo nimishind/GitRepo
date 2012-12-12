@@ -38,8 +38,8 @@ public class SideView extends LinearLayout implements OnTouchListener {
 
     GestureDetector mGestureDetector = null;
 
-    private int ScreenWidth = 100;
-    private int DefaultPrimaryWidth = 100;
+    private int mScreenWidth = 100;
+    private int DefaultMainWidth = 100;
     private int mDataWeight;
     private int mMainWeight;
     private int mDefaultMainSize;
@@ -63,13 +63,13 @@ public class SideView extends LinearLayout implements OnTouchListener {
         mMainId = viewAttrs.getResourceId(R.styleable.SlideView_mainView, 0);
         if (mMainId == 0) {
             e = new IllegalArgumentException(viewAttrs.getPositionDescription()
-                    + ": The required attribute primaryContent must refer to a valid child view.");
+                    + ": The required attribute MainContent must refer to a valid child view.");
         }
 
         mDataId = viewAttrs.getResourceId(R.styleable.SlideView_dataView, 0);
         if (mDataId == 0) {
             e = new IllegalArgumentException(viewAttrs.getPositionDescription()
-                    + ": The required attribute secondaryContent must refer to a valid child view.");
+                    + ": The required attribute DataContent must refer to a valid child view.");
         }
 
         mMainWeight = getResources().getInteger(
@@ -103,7 +103,7 @@ public class SideView extends LinearLayout implements OnTouchListener {
 
         }
 
-        mLastMainSize = getPrimaryContentSize();
+        mLastMainSize = getMainContentSize();
 
         mDataView = findViewById(mDataId);
         if (mDataView == null) {
@@ -125,9 +125,10 @@ public class SideView extends LinearLayout implements OnTouchListener {
         if (view != mControllerView) {
             return false;
         }
-        if (mGestureDetector.onTouchEvent(me)) {
-            return true;
-        }
+//        if (mGestureDetector.onTouchEvent(me)) {
+//            return true;
+//        }
+        
         // Log.v("foo", "at "+SystemClock.elapsedRealtime()+" got touch event " + me);
         if (me.getAction() == MotionEvent.ACTION_DOWN) {
             mDragging = true;
@@ -147,18 +148,24 @@ public class SideView extends LinearLayout implements OnTouchListener {
                     && mDragStartY < (me.getY() + TAP_DRIFT_TOLERANCE)
                     && mDragStartY > (me.getY() - TAP_DRIFT_TOLERANCE)
                     && ((SystemClock.elapsedRealtime() - mDraggingStarted) < SINGLE_TAP_TIME_LIMIT)) {
-                if (isPrimaryContentMaximized() || isSecondaryContentMaximized()) {
-                    setPrimaryContentSize(mLastMainSize);
+                if (isMainContentMaximized() || isDataContentMaximized()) {
+
+                    if (mLastMainSize < (mScreenWidth / 5)) {
+                        // unMinimizeDataContent();
+                        maximizeDataContent();
+                        return true;
+                    }
+                    setMainContentSize(mLastMainSize);
                 } else {
-                    maximizeSecondaryContent();
+                    maximizeDataContent();
                 }
             }
             return true;
         } else if (me.getAction() == MotionEvent.ACTION_MOVE) {
             if (getOrientation() == VERTICAL) {
-                setPrimaryContentHeight((int) (me.getRawY() - mPointerOffset));
+                setMainContentHeight((int) (me.getRawY() - mPointerOffset));
             } else {
-                setPrimaryContentWidth((int) (me.getRawX() - mPointerOffset));
+                setMainContentWidth((int) (me.getRawX() - mPointerOffset));
             }
         }
         return true;
@@ -168,7 +175,7 @@ public class SideView extends LinearLayout implements OnTouchListener {
         return mControllerView;
     }
 
-    public int getPrimaryContentSize() {
+    public int getMainContentSize() {
         if (getOrientation() == VERTICAL) {
             return mMainView.getMeasuredHeight();
         } else {
@@ -177,15 +184,15 @@ public class SideView extends LinearLayout implements OnTouchListener {
 
     }
 
-    public boolean setPrimaryContentSize(int newSize) {
+    public boolean setMainContentSize(int newSize) {
         if (getOrientation() == VERTICAL) {
-            return setPrimaryContentHeight(newSize);
+            return setMainContentHeight(newSize);
         } else {
-            return setPrimaryContentWidth(newSize);
+            return setMainContentWidth(newSize);
         }
     }
 
-    private boolean setPrimaryContentHeight(int newHeight) {
+    private boolean setMainContentHeight(int newHeight) {
         ViewGroup.LayoutParams params = mMainView.getLayoutParams();
         if (mDataView.getMeasuredHeight() < 1 && newHeight > params.height) {
             return false;
@@ -193,13 +200,13 @@ public class SideView extends LinearLayout implements OnTouchListener {
         if (newHeight >= 0) {
             params.height = newHeight;
         }
-        unMinimizeSecondaryContent();
+        unMinimizeDataContent();
         mMainView.setLayoutParams(params);
         return true;
 
     }
 
-    private boolean setPrimaryContentWidth(int newWidth) {
+    private boolean setMainContentWidth(int newWidth) {
         ViewGroup.LayoutParams params = mMainView.getLayoutParams();
 
         if (mDataView.getMeasuredWidth() < 1 && newWidth > params.width) {
@@ -208,12 +215,14 @@ public class SideView extends LinearLayout implements OnTouchListener {
         if (newWidth >= 0) {
             params.width = newWidth;
         }
-        unMinimizeSecondaryContent();
+
+        
+        unMinimizeDataContent();
         mMainView.setLayoutParams(params);
         return true;
     }
 
-    public boolean isPrimaryContentMaximized() {
+    public boolean isMainContentMaximized() {
         if ((getOrientation() == VERTICAL && (mDataView.getMeasuredHeight() < MAX_THREASHOLD_DIP))
                 || (getOrientation() == HORIZONTAL && (mDataView.getMeasuredWidth() < MAX_THREASHOLD_DIP))) {
             return true;
@@ -223,7 +232,7 @@ public class SideView extends LinearLayout implements OnTouchListener {
 
     }
 
-    public boolean isSecondaryContentMaximized() {
+    public boolean isDataContentMaximized() {
         if ((getOrientation() == VERTICAL && (mMainView.getMeasuredHeight() < MAX_THREASHOLD_DIP))
                 || (getOrientation() == HORIZONTAL && (mMainView.getMeasuredWidth() < MAX_THREASHOLD_DIP))) {
             return true;
@@ -232,42 +241,45 @@ public class SideView extends LinearLayout implements OnTouchListener {
         }
     }
 
-    public void maximizePrimaryContent() {
-        maximizeContentPane(mMainView, mDataView);
+    public void maximizeMainContent() {
+        mControllerView.setVisibility(VISIBLE);
+        setMainContentSize(mDefaultMainSize);
+        // maximizeContentPane(mMainView, mDataView);
     }
 
-    public void maximizeSecondaryContent() {
+    public void maximizeDataContent() {
+      //  mControllerView.setVisibility(GONE);
         maximizeContentPane(mDataView, mMainView);
     }
 
     private void maximizeContentPane(View toMaximize, View toUnMaximize) {
-        mLastMainSize = getPrimaryContentSize();
+        mLastMainSize = getMainContentSize();
 
         ViewGroup.LayoutParams params = toUnMaximize.getLayoutParams();
-        ViewGroup.LayoutParams secondaryParams = toMaximize.getLayoutParams();
+        ViewGroup.LayoutParams DataParams = toMaximize.getLayoutParams();
         if (getOrientation() == VERTICAL) {
             params.height = 1;
-            secondaryParams.height = LayoutParams.FILL_PARENT; // getLayoutParams().height -
-                                                               // mHandle.getLayoutParams().height;
+            DataParams.height = LayoutParams.FILL_PARENT; // getLayoutParams().height -
+                                                          // mHandle.getLayoutParams().height;
         } else {
             params.width = 1;
-            secondaryParams.width = LayoutParams.FILL_PARENT; // getLayoutParams().width -
-                                                              // mHandle.getLayoutParams().width;
+            DataParams.width = LayoutParams.FILL_PARENT; // getLayoutParams().width -
+                                                         // mHandle.getLayoutParams().width;
         }
         toUnMaximize.setLayoutParams(params);
-        toMaximize.setLayoutParams(secondaryParams);
+        toMaximize.setLayoutParams(DataParams);
 
     }
 
-    private void unMinimizeSecondaryContent() {
-        ViewGroup.LayoutParams secondaryParams = mDataView.getLayoutParams();
+    private void unMinimizeDataContent() {
+        ViewGroup.LayoutParams DataParams = mDataView.getLayoutParams();
         if (getOrientation() == VERTICAL) {
-            secondaryParams.height = LayoutParams.FILL_PARENT;
+            DataParams.height = LayoutParams.FILL_PARENT;
         } else {
-            secondaryParams.width = LayoutParams.FILL_PARENT;
+            DataParams.width = LayoutParams.FILL_PARENT;
 
         }
-        mDataView.setLayoutParams(secondaryParams);
+        mDataView.setLayoutParams(DataParams);
 
     }
 
@@ -275,26 +287,26 @@ public class SideView extends LinearLayout implements OnTouchListener {
         private static final int SWIPE_MIN_DISTANCE = 20;
         private static final int SWIPE_MIN_DISTANCE_PRIM = 15;
         private static final int SWIPE_MAX_OFF_PATH = 100;
-        private static final int SWIPE_THRESHOLD_VELOCITY = 50;
+        private static final int SWIPE_THRESHOLD_VELOCITY = 100;
 
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
             try {
-                Log.i("Nimish", Math.abs(e1.getRawY() - e2.getRawY()) + " velosity " + velocityX
-                        + " We got a fling " + (e2.getRawX() - e1.getRawX()));
+                Log.i("Nimish", Math.abs(e1.getRawY() - e2.getRawY()) + " velosityX " + velocityX
+                        + " velosityY " + velocityY + " We got a fling " + (e2.getRawX() - e1.getRawX()));
 
                 if (Math.abs(e1.getRawY() - e2.getRawY()) <= SWIPE_MAX_OFF_PATH) {
-                    if (Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+                    if ((Math.abs(velocityX) + Math.abs(velocityY)) > SWIPE_THRESHOLD_VELOCITY) {
                         if (e1.getRawX() - e2.getRawX() > SWIPE_MIN_DISTANCE) {
-                            // setPrimaryContentSize(400);
-                            maximizeSecondaryContent();
+                            // setMainContentSize(400);
+                            maximizeDataContent();
                             Log.i("Nimish", " We got a fling max sec content");
                             return true;
                         } else {
 
                             if (e2.getRawX() - e1.getRawX() > SWIPE_MIN_DISTANCE_PRIM) {
-                                setPrimaryContentSize(mDefaultMainSize);
-                                // maximizePrimaryContent();
+                                setMainContentSize(mDefaultMainSize);
+                                // maximizeMainContent();
                                 Log.i("Nimish", " We got a fling max Prim content");
                                 return true;
                             }
@@ -309,9 +321,9 @@ public class SideView extends LinearLayout implements OnTouchListener {
     }
 
     public void setScreenWidth(int width) {
-        ScreenWidth = width;
-        mDefaultMainSize = (int) (width * 1.0 * mMainWeight / (1.0 * (mDataWeight + mMainWeight)));
-        setPrimaryContentWidth(mDefaultMainSize);
+        mScreenWidth = width;
+        mLastMainSize = mDefaultMainSize = (int) (width * 1.0 * mMainWeight / (1.0 * (mDataWeight + mMainWeight)));
+        setMainContentWidth(mDefaultMainSize);
     }
 
 };

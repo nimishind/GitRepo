@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Display;
+import android.view.KeyEvent;
 import android.widget.Button;
 
 import com.strumsoft.sideview.SideView;
@@ -57,5 +58,19 @@ public class Home extends Activity {
             sv.setScreenWidth(display.getWidth());
         }
         super.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+
+            if (sv.isDataContentMaximized()) {
+                sv.maximizeMainContent();
+                return true;
+                
+            }
+
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }
