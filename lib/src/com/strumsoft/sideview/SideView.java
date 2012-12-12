@@ -128,7 +128,7 @@ public class SideView extends LinearLayout implements OnTouchListener {
         if (mGestureDetector.onTouchEvent(me)) {
             return true;
         }
-        
+
         // Log.v("foo", "at "+SystemClock.elapsedRealtime()+" got touch event " + me);
         if (me.getAction() == MotionEvent.ACTION_DOWN) {
             mDragging = true;
@@ -143,26 +143,31 @@ public class SideView extends LinearLayout implements OnTouchListener {
             return true;
         } else if (me.getAction() == MotionEvent.ACTION_UP) {
             mDragging = false;
-            
-            
-         
 
             if (mDragStartX < (me.getX() + TAP_DRIFT_TOLERANCE)
                     && mDragStartX > (me.getX() - TAP_DRIFT_TOLERANCE)
                     && mDragStartY < (me.getY() + TAP_DRIFT_TOLERANCE)
                     && mDragStartY > (me.getY() - TAP_DRIFT_TOLERANCE)
                     && ((SystemClock.elapsedRealtime() - mDraggingStarted) < SINGLE_TAP_TIME_LIMIT)) {
+            
+                //This Block is called if it was a click event. Hence avoiding this functionaly to give 
+                //overlayed UI to show functionality.
+                
                 if (isMainContentMaximized() || isDataContentMaximized()) {
                     setMainContentSize(mDefaultMainSize);
                 } else {
                     maximizeDataContent();
                 }
-            }else
+            } else {
+                
+                //This is called if it was a Dragingn event. 
                 if (getMainContentSize() < (mScreenWidth / 3)) {
                     // unMinimizeDataContent();
                     maximizeDataContent();
                     return true;
                 }
+
+            }
             return true;
         } else if (me.getAction() == MotionEvent.ACTION_MOVE) {
             if (getOrientation() == VERTICAL) {
