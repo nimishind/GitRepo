@@ -31,7 +31,6 @@ public class Home extends Activity {
         // ((SplitView)findViewById(R.id.split_view)).maximizeMainContent();
         // }
         // 
-        //
         // });
         //
         // mMaximizeDataContent = (Button)findViewById(R.id.maximize_Data);
