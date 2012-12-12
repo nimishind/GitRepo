@@ -161,7 +161,7 @@ public class SideView extends LinearLayout implements OnTouchListener {
             } else {
                 
                 //This is called if it was a Dragingn event. 
-                if (getMainContentSize() < (mScreenWidth / 3)) {
+                if (getMainContentSize() < (mScreenWidth*2 / 5)) {
                     // unMinimizeDataContent();
                     maximizeDataContent();
                     return true;

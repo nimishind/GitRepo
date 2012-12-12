@@ -17,20 +17,36 @@
     <LinearLayout
         android:id="@+id/main"
         android:layout_width="200dp"
-        android:layout_height="fill_parent" >
+        android:layout_height="fill_parent"
+        android:background="@drawable/background_grey"
+        android:orientation="vertical" >
 
-        <TextView
-            android:layout_width="200dp"
+        <!-- pannel size will varry so we need one more layout to get the effect -->
+        <!-- Pannel one data here -->
+
+        <LinearLayout
+            android:layout_width="300dp"
             android:layout_height="fill_parent"
-            android:text="Hello World Primarry /n, 30 pm: The government seems to have relented to the Opposition&apos;s demand and has it has no hesitation in having a probe into the Walmart lobbying report. Parliamentary Affairs Minister Kamal Nath said, Government is as much concerned as the House and has no hesitations in having a probe into this. We want to get to the facts of this matter." />
+            android:orientation="vertical" >
+
+            <Button
+                android:id="@+id/btn_persona"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_grey"
+                android:drawableLeft="@drawable/ico_bargraph"
+                android:text="Personalytics"
+                android:textAppearance="@style/TextAppearance.Sherlock.Light.Widget.PopupMenu.Large" />
+
+            <Button
+                android:id="@+id/btn_me"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_grey"
+                android:drawableLeft="@drawable/ico_bargraph"
+                android:text="ME" />
+        </LinearLayout>
     </LinearLayout>
-
-    <!-- divider -->
-
-
-    <!-- divider -->
-
-
     <!-- Pannel two -->
 
     <RelativeLayout
@@ -57,16 +73,36 @@
             android:layout_height="fill_parent" >
 
             <LinearLayout
+                android:id="@+id/data2"
                 android:layout_width="200dp"
-                android:layout_height="fill_parent" >
+                android:layout_height="fill_parent"
+                android:orientation="vertical" >
 
-                <TextView
-                    android:layout_width="200dp"
-                    android:layout_height="fill_parent"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginLeft="10dp"
-                    android:text="Hello World secondary /n, 30 pm: The government seems to have relented to the Opposition&apos;s demand and has it has no hesitation in having a probe into the Walmart lobbying report. Parliamentary Affairs Minister Kamal Nath said, Government is as much concerned as the House and has no hesitations in having a probe into this. We want to get to the facts of this matte" />
+                <!-- Pannel 2 data here -->
+
+<!--                 <TextView -->
+<!--                     android:layout_width="200dp" -->
+<!--                     android:layout_height="wrap_content" -->
+<!--                     android:layout_marginLeft="10dp" -->
+<!--                     android:text="Hello World secondary /n, " /> -->
+
+<!--                 <Button -->
+<!--                     android:id="@+id/button1" -->
+<!--                     android:layout_width="wrap_content" -->
+<!--                     android:layout_height="wrap_content" -->
+<!--                     android:layout_marginLeft="10dp" -->
+<!--                     android:text="Check io" > -->
+<!--  	</Button> -->
+                    <ImageView
+                        android:id="@+id/mainimageView"
+                        android:src="@drawable/demo_one"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_marginLeft="10dp"
+                        android:scaleType="fitXY" />
+               
             </LinearLayout>
+
         </LinearLayout>
     </RelativeLayout>
 
