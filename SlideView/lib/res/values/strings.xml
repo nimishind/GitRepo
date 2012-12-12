@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ACTIVITY_ENTRY_NAME</string>
+    <integer name="main_weight">6</integer>
+	<integer name="data_weight">2</integer>
+</resources>
