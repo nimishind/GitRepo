@@ -125,9 +125,9 @@ public class SideView extends LinearLayout implements OnTouchListener {
         if (view != mControllerView) {
             return false;
         }
-//        if (mGestureDetector.onTouchEvent(me)) {
-//            return true;
-//        }
+        if (mGestureDetector.onTouchEvent(me)) {
+            return true;
+        }
         
         // Log.v("foo", "at "+SystemClock.elapsedRealtime()+" got touch event " + me);
         if (me.getAction() == MotionEvent.ACTION_DOWN) {
@@ -143,23 +143,26 @@ public class SideView extends LinearLayout implements OnTouchListener {
             return true;
         } else if (me.getAction() == MotionEvent.ACTION_UP) {
             mDragging = false;
+            
+            
+         
+
             if (mDragStartX < (me.getX() + TAP_DRIFT_TOLERANCE)
                     && mDragStartX > (me.getX() - TAP_DRIFT_TOLERANCE)
                     && mDragStartY < (me.getY() + TAP_DRIFT_TOLERANCE)
                     && mDragStartY > (me.getY() - TAP_DRIFT_TOLERANCE)
                     && ((SystemClock.elapsedRealtime() - mDraggingStarted) < SINGLE_TAP_TIME_LIMIT)) {
                 if (isMainContentMaximized() || isDataContentMaximized()) {
-
-                    if (mLastMainSize < (mScreenWidth / 5)) {
-                        // unMinimizeDataContent();
-                        maximizeDataContent();
-                        return true;
-                    }
-                    setMainContentSize(mLastMainSize);
+                    setMainContentSize(mDefaultMainSize);
                 } else {
                     maximizeDataContent();
                 }
-            }
+            }else
+                if (getMainContentSize() < (mScreenWidth / 3)) {
+                    // unMinimizeDataContent();
+                    maximizeDataContent();
+                    return true;
+                }
             return true;
         } else if (me.getAction() == MotionEvent.ACTION_MOVE) {
             if (getOrientation() == VERTICAL) {

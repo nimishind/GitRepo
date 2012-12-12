@@ -29,7 +29,7 @@ public class Home extends Activity {
         // mMaximizeMainContent.setOnClickListener( new OnClickListener() {
         // @Override public void onClick(View v) {
         // ((SplitView)findViewById(R.id.split_view)).maximizeMainContent();
-        // }
+        // } 
         // 
         // });
         //
