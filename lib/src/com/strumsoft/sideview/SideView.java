@@ -1,22 +1,18 @@
 package com.strumsoft.sideview;
 
-import com.strumsoft.sideview.R;
-
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.SystemClock;
-import android.util.Log;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Display;
 import android.view.GestureDetector;
+import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.TextView;
-import android.view.ViewGroup;
-import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.View.OnTouchListener;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.LinearLayout.LayoutParams;
 
 public class SideView extends LinearLayout implements OnTouchListener {
 
@@ -33,19 +29,20 @@ public class SideView extends LinearLayout implements OnTouchListener {
     private View mDataView;
     private View mDataContainerView;
     // container
-    private int mLastMainSize;
+    // private int mLastMainSize;
 
-    private boolean mDragging;
+    // private boolean mDragging;
     private long mDraggingStarted;
     private float mDragStartX;
     private float mDragStartY;
 
     private float mPointerOffset;
 
+    private boolean mForcedSetSize = false;
     GestureDetector mGestureDetector = null;
 
     private int mScreenWidth = 100;
-    private int DefaultMainWidth = 100;
+
     private int mDataWeight;
     private int mMainWeight;
     private int mDefaultMainSize;
@@ -121,7 +118,7 @@ public class SideView extends LinearLayout implements OnTouchListener {
 
         }
 
-        mLastMainSize = getMainContentSize();
+        // mLastMainSize = getMainContentSize();
 
         mDataView = findViewById(mDataId);
         if (mDataView == null) {
@@ -166,7 +163,7 @@ public class SideView extends LinearLayout implements OnTouchListener {
 
     @Override
     public boolean onTouch(View view, MotionEvent me) {
-        ViewGroup.LayoutParams thisParams = getLayoutParams();
+        // ViewGroup.LayoutParams thisParams = getLayoutParams();
         // Only capture drag events if we start
         if (view != mControllerView) {
             return false;
@@ -177,7 +174,7 @@ public class SideView extends LinearLayout implements OnTouchListener {
 
         // Log.v("foo", "at "+SystemClock.elapsedRealtime()+" got touch event " + me);
         if (me.getAction() == MotionEvent.ACTION_DOWN) {
-            mDragging = true;
+            // mDragging = true;
             mDraggingStarted = SystemClock.elapsedRealtime();
             mDragStartX = me.getX();
             mDragStartY = me.getY();
@@ -188,7 +185,7 @@ public class SideView extends LinearLayout implements OnTouchListener {
             }
             return true;
         } else if (me.getAction() == MotionEvent.ACTION_UP) {
-            mDragging = false;
+            // mDragging = false;
 
             if (mDragStartX < (me.getX() + TAP_DRIFT_TOLERANCE)
                     && mDragStartX > (me.getX() - TAP_DRIFT_TOLERANCE)
@@ -247,6 +244,8 @@ public class SideView extends LinearLayout implements OnTouchListener {
     }
 
     public boolean setMainContentSize(int newSize) {
+        Log.i("Nimish", "Setting main content Size" + newSize);
+
         if (getOrientation() == VERTICAL) {
             return setMainContentHeight(newSize);
         } else {
@@ -256,9 +255,10 @@ public class SideView extends LinearLayout implements OnTouchListener {
 
     private boolean setMainContentHeight(int newHeight) {
         ViewGroup.LayoutParams params = mMainView.getLayoutParams();
-        if (mDataView.getMeasuredHeight() < 1 && newHeight > params.height) {
+        if (!mForcedSetSize && (mDataView.getMeasuredHeight() < 1 && newHeight > params.height)) {
             return false;
         }
+        mForcedSetSize = false;
         if (newHeight >= 0) {
             params.height = newHeight;
         }
@@ -271,9 +271,11 @@ public class SideView extends LinearLayout implements OnTouchListener {
     private boolean setMainContentWidth(int newWidth) {
         ViewGroup.LayoutParams params = mMainView.getLayoutParams();
 
-        if (mDataView.getMeasuredWidth() < 1 && newWidth > params.width) {
+        if (!mForcedSetSize && (mDataView.getMeasuredWidth() < 1 && newWidth > params.width)) {
+            Log.i("Nimish", mDataView.getMeasuredWidth() + "Setting =========== Size" + newWidth);
             return false;
         }
+        mForcedSetSize = false;
         if (newWidth >= 0) {
             params.width = newWidth;
         }
@@ -314,7 +316,7 @@ public class SideView extends LinearLayout implements OnTouchListener {
     }
 
     private void maximizeContentPane(View toMaximize, View toUnMaximize) {
-        mLastMainSize = getMainContentSize();
+        // mLastMainSize = getMainContentSize();
 
         ViewGroup.LayoutParams params = toUnMaximize.getLayoutParams();
         ViewGroup.LayoutParams DataParams = toMaximize.getLayoutParams();
@@ -382,10 +384,12 @@ public class SideView extends LinearLayout implements OnTouchListener {
     }
 
     public void setScreenSize(Display mDisplay) {
+        mForcedSetSize = true;
+        Log.i("Nimish", "Setting main osetScreenSizeSize");
         mScreenWidth = mDisplay.getWidth();
         mScreenHeight = mDisplay.getHeight();
         setLastMainSize();
-        setMainContentWidth(mDefaultMainSize);
+        setMainContentSize(mDefaultMainSize);
         setContanerSize(mDataContainerView, mDisplay);
         setContanerSize(mMainContainerView, mDisplay);
         mDisplay = null;
@@ -393,9 +397,11 @@ public class SideView extends LinearLayout implements OnTouchListener {
 
     private void setLastMainSize() {
         if (getOrientation() == VERTICAL) {
-            mLastMainSize = mDefaultMainSize = (int) (mScreenHeight * 1.0 * mMainWeight / (1.0 * (mDataWeight + mMainWeight)));
+            // mLastMainSize =
+            mDefaultMainSize = (int) (mScreenHeight * 1.0 * mMainWeight / (1.0 * (mDataWeight + mMainWeight)));
         } else {
-            mLastMainSize = mDefaultMainSize = (int) (mScreenWidth * 1.0 * mMainWeight / (1.0 * (mDataWeight + mMainWeight)));
+            // mLastMainSize =
+            mDefaultMainSize = (int) (mScreenWidth * 1.0 * mMainWeight / (1.0 * (mDataWeight + mMainWeight)));
         }
 
     }

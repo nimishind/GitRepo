@@ -953,8 +953,9 @@ containing a value of this type.
         public static final int grayout_2_2=0x7f020074;
         public static final int header_background=0x7f020075;
         public static final int header_bg=0x7f020076;
-        public static final int ico_bargraph=0x7f020077;
-        public static final int icon=0x7f020078;
+        public static final int i_pie_white=0x7f020077;
+        public static final int i_side_menu_me=0x7f020078;
+        public static final int icon=0x7f020079;
     }
     public static final class id {
         public static final int abs__action_bar=0x7f040022;

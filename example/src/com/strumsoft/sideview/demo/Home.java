@@ -2,13 +2,13 @@ package com.strumsoft.sideview.demo;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.LinearLayout.LayoutParams;
+
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.ActionBar;
@@ -17,10 +17,10 @@ import com.actionbarsherlock.view.Menu;
 import com.strumsoft.sideview.SideView;
 
 public class Home extends SherlockFragmentActivity {
-    private Button mHalves;
+
     private Button mMaximizeMainContent;
-    private Button mMaximizeDataContent;
-    SideView sv;
+
+    private SideView sv;
 
     /** Called when the activity is first created. */
     @Override
@@ -33,7 +33,7 @@ public class Home extends SherlockFragmentActivity {
         actionBar.show();
 
         sv = (SideView) findViewById(R.id.sideviewdemo);
-
+        Log.i("Nimish", "Setting main content Size" + sv);
         final ImageView imv = (ImageView) findViewById(R.id.mainimageView);
 
         mMaximizeMainContent = (Button) findViewById(R.id.btn_me);
@@ -41,7 +41,7 @@ public class Home extends SherlockFragmentActivity {
 
             @Override
             public void onClick(View v) {
-                Toast.makeText(Home.this, "Hello ME", 500).show();
+                Toast.makeText(Home.this, "Hello ME", Toast.LENGTH_SHORT).show();
                 imv.setImageResource(R.drawable.demo_two);
             }
         });
@@ -51,7 +51,7 @@ public class Home extends SherlockFragmentActivity {
 
             @Override
             public void onClick(View v) {
-                Toast.makeText(Home.this, "Hello Persona", 500).show();
+                Toast.makeText(Home.this, "Hello Persona", Toast.LENGTH_SHORT).show();
                 imv.setImageResource(R.drawable.demo_one);
             }
         });
@@ -71,11 +71,11 @@ public class Home extends SherlockFragmentActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        Log.i("Nimish", "Setting main onStart Size" + sv);
         if (sv != null) {
             Display display = this.getWindowManager().getDefaultDisplay();
             sv.setScreenSize(display);
         }
-
     }
 
     @Override
@@ -86,6 +86,7 @@ public class Home extends SherlockFragmentActivity {
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
+        Log.i("Nimish", "Setting main onConfigurationChanged Size" + sv);
         if (sv != null) {
             Display display = this.getWindowManager().getDefaultDisplay();
             sv.setScreenSize(display);

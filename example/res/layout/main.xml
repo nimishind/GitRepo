@@ -18,7 +18,7 @@
 
     <LinearLayout
         android:id="@+id/main"
-        android:layout_width="200dp"
+        android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:background="@drawable/background_grey"
         android:orientation="vertical" >
@@ -37,7 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_grey"
-                android:drawableLeft="@drawable/ico_bargraph"
+                android:drawableLeft="@drawable/i_pie_white"
                 android:text="Personalytics"
                 android:textAppearance="@style/TextAppearance.Sherlock.Light.Widget.PopupMenu.Large" />
 
@@ -46,7 +46,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_grey"
-                android:drawableLeft="@drawable/ico_bargraph"
+                android:drawableLeft="@drawable/i_side_menu_me"
                 android:text="ME" />
         </LinearLayout>
     </LinearLayout>
