@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">Slider View</string>
     <string name="app_discription">This is a demo application for side pane views</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_settings2">Settings</string>
 
-     <string name="menu_settings">Settings</string>
-       <string name="menu_settings2">Settings</string>
-    
+    <drawable name="switch_chooser_background">#185a5a5a</drawable>
 
 </resources>

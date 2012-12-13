@@ -36,18 +36,36 @@
                 android:id="@+id/btn_persona"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/background_grey"
+                android:background="@drawable/background_grey_button"
                 android:drawableLeft="@drawable/i_pie_white"
                 android:text="Personalytics"
                 android:textAppearance="@style/TextAppearance.Sherlock.Light.Widget.PopupMenu.Large" />
 
             <Button
                 android:id="@+id/btn_me"
+                android:layout_margin="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/background_grey"
+                android:background="@drawable/background_grey_button"
                 android:drawableLeft="@drawable/i_side_menu_me"
                 android:text="ME" />
+            <Button
+                android:id="@+id/btn_me_fragment"
+                android:layout_margin="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_grey_button"
+                android:drawableLeft="@drawable/i_side_menu_me"
+                android:text="Me fragment " />
+            <Button
+                android:id="@+id/btn_click_fragment"
+                android:layout_margin="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_grey_button"
+                android:drawableLeft="@drawable/i_side_menu_me"
+                android:text="Clicks Fragment" />
+            
         </LinearLayout>
     </LinearLayout>
     <!-- Pannel two -->
@@ -98,7 +116,14 @@
                 <!-- android:layout_marginLeft="10dp" -->
                 <!-- android:text="Check io" > -->
                 <!-- </Button> -->
-
+                <FrameLayout
+                    android:id="@+id/dataFragment"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginLeft="10dp"
+                     android:visibility="gone"
+                     >
+                </FrameLayout>
                 <ImageView
                     android:id="@+id/mainimageView"
                     android:layout_width="fill_parent"
