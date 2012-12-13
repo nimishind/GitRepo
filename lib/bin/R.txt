@@ -1,15 +1,19 @@
 int attr controller 0x7f010000
+int attr dataContainerView 0x7f010006
 int attr dataView 0x7f010002
 int attr dataViewWeight 0x7f010004
+int attr mainContainerView 0x7f010005
 int attr mainView 0x7f010001
 int attr mainViewWeight 0x7f010003
 int integer data_weight 0x7f040001
 int integer main_weight 0x7f040000
 int layout main 0x7f020000
 int string app_name 0x7f030000
-int[] styleable SlideView { 0x7f010000, 0x7f010001, 0x7f010002, 0x7f010003, 0x7f010004 }
+int[] styleable SlideView { 0x7f010000, 0x7f010001, 0x7f010002, 0x7f010003, 0x7f010004, 0x7f010005, 0x7f010006 }
 int styleable SlideView_controller 0
+int styleable SlideView_dataContainerView 6
 int styleable SlideView_dataView 2
 int styleable SlideView_dataViewWeight 4
+int styleable SlideView_mainContainerView 5
 int styleable SlideView_mainView 1
 int styleable SlideView_mainViewWeight 3

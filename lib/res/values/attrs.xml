@@ -6,5 +6,7 @@
         <attr name="dataView" format="reference" />
         <attr name="mainViewWeight" format="reference" />
         <attr name="dataViewWeight" format="reference" />
+        <attr name="mainContainerView" format="reference" />
+        <attr name="dataContainerView" format="reference" />
     </declare-styleable>
 </resources>

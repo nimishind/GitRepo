@@ -28,6 +28,7 @@ int attr backgroundStacked 0x7f01004e
 int attr buttonStyleSmall 0x7f010019
 int attr controller 0x7f010061
 int attr customNavigationLayout 0x7f01004f
+int attr dataContainerView 0x7f010067
 int attr dataView 0x7f010063
 int attr dataViewWeight 0x7f010065
 int attr displayOptions 0x7f010049
@@ -54,6 +55,7 @@ int attr listPreferredItemHeightSmall 0x7f010032
 int attr listPreferredItemPaddingLeft 0x7f010033
 int attr listPreferredItemPaddingRight 0x7f010034
 int attr logo 0x7f01004d
+int attr mainContainerView 0x7f010066
 int attr mainView 0x7f010062
 int attr mainViewWeight 0x7f010064
 int attr navigationMode 0x7f010048
@@ -297,20 +299,21 @@ int id abs__textButton 0x7f040013
 int id abs__title 0x7f04001b
 int id abs__titleDivider 0x7f04001c
 int id abs__up 0x7f04000b
-int id btn_me 0x7f040038
-int id btn_persona 0x7f040037
-int id data 0x7f040035
-int id data2 0x7f04003a
+int id btn_me 0x7f04003a
+int id btn_persona 0x7f040039
+int id data 0x7f040036
+int id data2 0x7f040035
 int id disableHome 0x7f040009
-int id divider 0x7f040039
+int id divider 0x7f04003b
 int id edit_query 0x7f040027
 int id homeAsUp 0x7f040006
 int id inner_handle 0x7f040034
 int id listMode 0x7f040002
-int id main 0x7f040036
-int id mainimageView 0x7f04003b
-int id menu_next 0x7f04003c
-int id menu_settings 0x7f04003d
+int id main 0x7f040038
+int id main2 0x7f040037
+int id mainimageView 0x7f04003c
+int id menu_next 0x7f04003d
+int id menu_settings 0x7f04003e
 int id normal 0x7f040001
 int id showCustom 0x7f040008
 int id showHome 0x7f040005
@@ -608,9 +611,11 @@ int styleable SherlockTheme_windowNoTitle 59
 int styleable SherlockTheme_windowSplitActionBar 63
 int[] styleable SherlockView { 0x010100da }
 int styleable SherlockView_android_focusable 0
-int[] styleable SlideView { 0x7f010061, 0x7f010062, 0x7f010063, 0x7f010064, 0x7f010065 }
+int[] styleable SlideView { 0x7f010061, 0x7f010062, 0x7f010063, 0x7f010064, 0x7f010065, 0x7f010066, 0x7f010067 }
 int styleable SlideView_controller 0
+int styleable SlideView_dataContainerView 6
 int styleable SlideView_dataView 2
 int styleable SlideView_dataViewWeight 4
+int styleable SlideView_mainContainerView 5
 int styleable SlideView_mainView 1
 int styleable SlideView_mainViewWeight 3

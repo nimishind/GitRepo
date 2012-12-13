@@ -184,6 +184,10 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
+        public static final int dataContainerView=0x7f010067;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
         public static final int dataView=0x7f010063;
         /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
@@ -373,6 +377,10 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
         public static final int logo=0x7f01004d;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int mainContainerView=0x7f010066;
         /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
@@ -989,20 +997,21 @@ containing a value of this type.
         public static final int abs__title=0x7f04001b;
         public static final int abs__titleDivider=0x7f04001c;
         public static final int abs__up=0x7f04000b;
-        public static final int btn_me=0x7f040038;
-        public static final int btn_persona=0x7f040037;
-        public static final int data=0x7f040035;
-        public static final int data2=0x7f04003a;
+        public static final int btn_me=0x7f04003a;
+        public static final int btn_persona=0x7f040039;
+        public static final int data=0x7f040036;
+        public static final int data2=0x7f040035;
         public static final int disableHome=0x7f040009;
-        public static final int divider=0x7f040039;
+        public static final int divider=0x7f04003b;
         public static final int edit_query=0x7f040027;
         public static final int homeAsUp=0x7f040006;
         public static final int inner_handle=0x7f040034;
         public static final int listMode=0x7f040002;
-        public static final int main=0x7f040036;
-        public static final int mainimageView=0x7f04003b;
-        public static final int menu_next=0x7f04003c;
-        public static final int menu_settings=0x7f04003d;
+        public static final int main=0x7f040038;
+        public static final int main2=0x7f040037;
+        public static final int mainimageView=0x7f04003c;
+        public static final int menu_next=0x7f04003d;
+        public static final int menu_settings=0x7f04003e;
         public static final int normal=0x7f040001;
         public static final int showCustom=0x7f040008;
         public static final int showHome=0x7f040005;
@@ -3329,20 +3338,24 @@ containing a value of this type.
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
            <tr><td><code>{@link #SlideView_controller com.strumsoft.sideview.demo:controller}</code></td><td></td></tr>
+           <tr><td><code>{@link #SlideView_dataContainerView com.strumsoft.sideview.demo:dataContainerView}</code></td><td></td></tr>
            <tr><td><code>{@link #SlideView_dataView com.strumsoft.sideview.demo:dataView}</code></td><td></td></tr>
            <tr><td><code>{@link #SlideView_dataViewWeight com.strumsoft.sideview.demo:dataViewWeight}</code></td><td></td></tr>
+           <tr><td><code>{@link #SlideView_mainContainerView com.strumsoft.sideview.demo:mainContainerView}</code></td><td></td></tr>
            <tr><td><code>{@link #SlideView_mainView com.strumsoft.sideview.demo:mainView}</code></td><td></td></tr>
            <tr><td><code>{@link #SlideView_mainViewWeight com.strumsoft.sideview.demo:mainViewWeight}</code></td><td></td></tr>
            </table>
            @see #SlideView_controller
+           @see #SlideView_dataContainerView
            @see #SlideView_dataView
            @see #SlideView_dataViewWeight
+           @see #SlideView_mainContainerView
            @see #SlideView_mainView
            @see #SlideView_mainViewWeight
          */
         public static final int[] SlideView = {
             0x7f010061, 0x7f010062, 0x7f010063, 0x7f010064,
-            0x7f010065
+            0x7f010065, 0x7f010066, 0x7f010067
         };
         /**
           <p>This symbol is the offset where the {@link com.strumsoft.sideview.demo.R.attr#controller}
@@ -3354,6 +3367,16 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           @attr name android:controller
         */
         public static final int SlideView_controller = 0;
+        /**
+          <p>This symbol is the offset where the {@link com.strumsoft.sideview.demo.R.attr#dataContainerView}
+          attribute's value can be found in the {@link #SlideView} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name android:dataContainerView
+        */
+        public static final int SlideView_dataContainerView = 6;
         /**
           <p>This symbol is the offset where the {@link com.strumsoft.sideview.demo.R.attr#dataView}
           attribute's value can be found in the {@link #SlideView} array.
@@ -3374,6 +3397,16 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           @attr name android:dataViewWeight
         */
         public static final int SlideView_dataViewWeight = 4;
+        /**
+          <p>This symbol is the offset where the {@link com.strumsoft.sideview.demo.R.attr#mainContainerView}
+          attribute's value can be found in the {@link #SlideView} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name android:mainContainerView
+        */
+        public static final int SlideView_mainContainerView = 5;
         /**
           <p>This symbol is the offset where the {@link com.strumsoft.sideview.demo.R.attr#mainView}
           attribute's value can be found in the {@link #SlideView} array.

@@ -34,8 +34,6 @@ public class Home extends SherlockFragmentActivity {
 
         sv = (SideView) findViewById(R.id.sideviewdemo);
 
-        Display display = this.getWindowManager().getDefaultDisplay();
-        sv.setScreenWidth(display.getWidth());
         final ImageView imv = (ImageView) findViewById(R.id.mainimageView);
 
         mMaximizeMainContent = (Button) findViewById(R.id.btn_me);
@@ -57,21 +55,27 @@ public class Home extends SherlockFragmentActivity {
                 imv.setImageResource(R.drawable.demo_one);
             }
         });
- 
-//        mMaximizeMainContent = (Button) findViewById(R.id.button1);
-//        mMaximizeMainContent.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(Home.this, "Hello", 500).show();
-//
-//            }
-//        });
-        
-        
-        LayoutParams lpm = new LayoutParams(display.getWidth(), LayoutParams.FILL_PARENT);
-        LinearLayout lmv = (LinearLayout) findViewById(R.id.data2);
-        lmv.setLayoutParams(lpm);
+
+        // mMaximizeMainContent = (Button) findViewById(R.id.button1);
+        // mMaximizeMainContent.setOnClickListener(new View.OnClickListener() {
+        //
+        // @Override
+        // public void onClick(View v) {
+        // Toast.makeText(Home.this, "Hello", 500).show();
+        //
+        // }
+        // });
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (sv != null) {
+            Display display = this.getWindowManager().getDefaultDisplay();
+            sv.setScreenSize(display);
+        }
+
     }
 
     @Override
@@ -84,7 +88,7 @@ public class Home extends SherlockFragmentActivity {
     public void onConfigurationChanged(Configuration newConfig) {
         if (sv != null) {
             Display display = this.getWindowManager().getDefaultDisplay();
-            sv.setScreenWidth(display.getWidth());
+            sv.setScreenSize(display);
         }
         super.onConfigurationChanged(newConfig);
     }

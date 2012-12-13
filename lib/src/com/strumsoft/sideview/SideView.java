@@ -7,6 +7,7 @@ import android.content.res.TypedArray;
 import android.os.SystemClock;
 import android.util.Log;
 import android.util.AttributeSet;
+import android.view.Display;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.View.OnTouchListener;
 import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 
 public class SideView extends LinearLayout implements OnTouchListener {
 
@@ -22,11 +24,15 @@ public class SideView extends LinearLayout implements OnTouchListener {
     private View mControllerView;
 
     private int mMainId;
+    private int mMainContainerId;
     private View mMainView;
+    private View mMainContainerView;
 
     private int mDataId;
+    private int mDataContainerId;
     private View mDataView;
-
+    private View mDataContainerView;
+    // container
     private int mLastMainSize;
 
     private boolean mDragging;
@@ -43,6 +49,7 @@ public class SideView extends LinearLayout implements OnTouchListener {
     private int mDataWeight;
     private int mMainWeight;
     private int mDefaultMainSize;
+    private int mScreenHeight;
 
     final static private int MAX_THREASHOLD_DIP = 30;
     final static private int TAP_DRIFT_TOLERANCE = 3;
@@ -71,7 +78,18 @@ public class SideView extends LinearLayout implements OnTouchListener {
             e = new IllegalArgumentException(viewAttrs.getPositionDescription()
                     + ": The required attribute DataContent must refer to a valid child view.");
         }
-
+        mDataContainerId = viewAttrs.getResourceId(R.styleable.SlideView_dataContainerView, 0);
+        if (mDataId == 0) {
+            e = new IllegalArgumentException(
+                    viewAttrs.getPositionDescription()
+                            + ": The required attribute dataContainerView must refer to container of the view must refer to a valid child view.");
+        }
+        mMainContainerId = viewAttrs.getResourceId(R.styleable.SlideView_mainContainerView, 0);
+        if (mDataId == 0) {
+            e = new IllegalArgumentException(
+                    viewAttrs.getPositionDescription()
+                            + ": The required attribute mainContainerView must refer to container of the view must refer to a valid child view.");
+        }
         mMainWeight = getResources().getInteger(
                 viewAttrs.getResourceId(R.styleable.SlideView_mainViewWeight, 0));
         mDataWeight = getResources().getInteger(
@@ -112,6 +130,34 @@ public class SideView extends LinearLayout implements OnTouchListener {
                     + name + "'");
 
         }
+
+        mDataContainerView = findViewById(mDataContainerId);
+        if (mDataContainerView == null) {
+            String name = getResources().getResourceEntryName(mDataContainerId);
+            throw new RuntimeException("Your Panel must have a child View whose id attribute is 'R.id."
+                    + name + "'");
+
+        } else {
+            if (!mDataContainerView.getClass().equals(LinearLayout.class)) {
+                String name = getResources().getResourceEntryName(mMainContainerId);
+                throw new RuntimeException("Your Panel must have a child View whose id attribute is 'R.id."
+                        + name + "' Should be a linear layout");
+            }
+        }
+        mMainContainerView = findViewById(mMainContainerId);
+        if (mMainContainerView == null) {
+            String name = getResources().getResourceEntryName(mMainContainerId);
+            throw new RuntimeException("Your Panel must have a child View whose id attribute is 'R.id."
+                    + name + "'");
+
+        } else {
+            if (!mMainContainerView.getClass().equals(LinearLayout.class)) {
+                String name = getResources().getResourceEntryName(mMainContainerId);
+                throw new RuntimeException("Your Panel must have a child View whose id attribute is 'R.id."
+                        + name + "' Should be a linear layout");
+            }
+        }
+
         mGestureDetector = new GestureDetector(new XButtonFlipDetector());
 
         mControllerView.setOnTouchListener(this);
@@ -149,23 +195,31 @@ public class SideView extends LinearLayout implements OnTouchListener {
                     && mDragStartY < (me.getY() + TAP_DRIFT_TOLERANCE)
                     && mDragStartY > (me.getY() - TAP_DRIFT_TOLERANCE)
                     && ((SystemClock.elapsedRealtime() - mDraggingStarted) < SINGLE_TAP_TIME_LIMIT)) {
-            
-                //This Block is called if it was a click event. Hence avoiding this functionaly to give 
-                //overlayed UI to show functionality.
-                
+
+                // This Block is called if it was a click event. Hence avoiding this functionaly to give
+                // overlayed UI to show functionality.
+
                 if (isMainContentMaximized() || isDataContentMaximized()) {
                     setMainContentSize(mDefaultMainSize);
                 } else {
                     maximizeDataContent();
                 }
             } else {
-                
-                //This is called if it was a Dragingn event. 
-                if (getMainContentSize() < (mScreenWidth*2 / 5)) {
-                    // unMinimizeDataContent();
-                    maximizeDataContent();
-                    return true;
+                if (getOrientation() == VERTICAL) {
+                    if (getMainContentSize() < (mScreenHeight * 2 / 5)) {
+                        // unMinimizeDataContent();
+                        maximizeDataContent();
+                        return true;
+                    }
+                } else {
+                    if (getMainContentSize() < (mScreenWidth * 2 / 5)) {
+                        // unMinimizeDataContent();
+                        maximizeDataContent();
+                        return true;
+                    }
                 }
+
+                // This is called if it was a Dragingn event.
 
             }
             return true;
@@ -224,7 +278,6 @@ public class SideView extends LinearLayout implements OnTouchListener {
             params.width = newWidth;
         }
 
-        
         unMinimizeDataContent();
         mMainView.setLayoutParams(params);
         return true;
@@ -256,7 +309,7 @@ public class SideView extends LinearLayout implements OnTouchListener {
     }
 
     public void maximizeDataContent() {
-      //  mControllerView.setVisibility(GONE);
+        // mControllerView.setVisibility(GONE);
         maximizeContentPane(mDataView, mMainView);
     }
 
@@ -328,10 +381,34 @@ public class SideView extends LinearLayout implements OnTouchListener {
         }
     }
 
-    public void setScreenWidth(int width) {
-        mScreenWidth = width;
-        mLastMainSize = mDefaultMainSize = (int) (width * 1.0 * mMainWeight / (1.0 * (mDataWeight + mMainWeight)));
+    public void setScreenSize(Display mDisplay) {
+        mScreenWidth = mDisplay.getWidth();
+        mScreenHeight = mDisplay.getHeight();
+        setLastMainSize();
         setMainContentWidth(mDefaultMainSize);
+        setContanerSize(mDataContainerView, mDisplay);
+        setContanerSize(mMainContainerView, mDisplay);
+        mDisplay = null;
+    }
+
+    private void setLastMainSize() {
+        if (getOrientation() == VERTICAL) {
+            mLastMainSize = mDefaultMainSize = (int) (mScreenHeight * 1.0 * mMainWeight / (1.0 * (mDataWeight + mMainWeight)));
+        } else {
+            mLastMainSize = mDefaultMainSize = (int) (mScreenWidth * 1.0 * mMainWeight / (1.0 * (mDataWeight + mMainWeight)));
+        }
+
+    }
+
+    private void setContanerSize(View mContainer, Display mDisplay) {
+        if (getOrientation() == VERTICAL) {
+            LayoutParams lpm = new LayoutParams(LayoutParams.FILL_PARENT, mDisplay.getHeight());
+            mContainer.setLayoutParams(lpm);
+        } else {
+            LayoutParams lpm = new LayoutParams(mDisplay.getWidth(), LayoutParams.FILL_PARENT);
+            mContainer.setLayoutParams(lpm);
+        }
+
     }
 
 };
