@@ -158,7 +158,7 @@ public class Home extends SherlockFragmentActivity implements OnClickListener {
                 transaction.remove(mLoadedFragment);
             mLoadedFragment = new PersonalAgentFragmentMe();
             transaction.replace(R.id.dataFragment, mLoadedFragment);
-            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
             transaction.commit();
 
             break;
@@ -168,9 +168,14 @@ public class Home extends SherlockFragmentActivity implements OnClickListener {
             img.setVisibility(View.GONE);
 
             transaction = getSupportFragmentManager().beginTransaction();
-            if (mLoadedFragment != null)
+            if (mLoadedFragment != null) {
+                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
                 transaction.remove(mLoadedFragment);
+
+            }
             mLoadedFragment = new PersonalAgentFragmentClicks();
+            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+
             transaction.replace(R.id.dataFragment, mLoadedFragment);
             transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
             transaction.commit();

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/response" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/enter_info_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="19dp"
+                android:layout_marginTop="9dp"
+                android:text="@string/enter_info_below_label"
+                android:textStyle="bold|italic" />
+
+            <EditText
+                android:id="@+id/nameEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/enter_info_label"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/enter_info_label"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="24dp"
+                android:ems="10"
+                android:hint="@string/name_label"
+                android:inputType="textPersonName" >
+            </EditText>
+
+            <EditText
+                android:id="@+id/emailEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/enter_info_label"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/nameEditText"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="18dp"
+                android:ems="10"
+                android:hint="@string/email_label"
+                android:inputType="textPersonName" >
+            </EditText>
+
+            <EditText
+                android:id="@+id/passwordEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/enter_info_label"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/emailEditText"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="18dp"
+                android:ems="10"
+                android:hint="@string/password_label"
+                android:inputType="textPassword" />
+
+            <EditText
+                android:id="@+id/passwordRepeatEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/enter_info_label"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/passwordEditText"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="18dp"
+                android:ems="10"
+                android:hint="@string/password_repeat"
+                android:inputType="textPassword" />
+        </RelativeLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/link_sign_in_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
+        android:clickable="true"
+        android:onClick="handleNavigateToLogin"
+        android:text="@string/link_login_already_have_account"
+        android:textColor="#0b84aa"
+        tools:context=".PersonalAgentRegisterActivity" />
+
+    <Button
+        android:id="@+id/signupButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/link_sign_in_label"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/button_states"
+        android:onClick="handleRegister"
+        android:text="@string/sign_up_label" />
+
+    <TextView
+        android:id="@+id/response"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/signupButton"
+        android:layout_alignLeft="@+id/signupButton"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="51dp" />
+
+</RelativeLayout>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/signInControlTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="16dp"
+        android:text="@string/sign_in_control_label"
+        android:textStyle="bold|italic" />
+
+    <EditText
+        android:id="@+id/emailAddressLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/signInControlTextView"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/signInControlTextView"
+        android:layout_marginLeft="19dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="25dp"
+        android:ems="10"
+        android:hint="@string/email_label"
+        android:inputType="textEmailAddress" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/passwordEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/signInControlTextView"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/emailAddressLogin"
+        android:layout_marginLeft="19dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="25dp"
+        android:ems="10"
+        android:hint="@string/password_label"
+        android:inputType="textPassword" />
+
+    <com.strumsoft.sideview.demo.switchs.Switchs
+        android:id="@+id/rememberPasswordSwitch"
+        android:layout_width="282dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/passwordEditText"
+        android:layout_below="@+id/passwordEditText"
+        android:layout_marginTop="22dp"
+        android:checked="true"
+        android:text="@string/remember_password_label" />
+
+    <!-- bottom -->
+
+    <Button
+        android:id="@+id/signUpLabel"
+        android:layout_width="282dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/button_states"
+        android:clickable="true"
+        android:onClick="handleSolicitSignupOrForgotPassword"
+        android:text="@string/sign_up_label"
+        android:textAppearance="@style/TextAppearance.Sherlock.Widget.ActionBar.Title"
+           android:padding="20dp"
+
+        />
+
+    <!--
+         TextView
+        android:id="@+id/forgot_password_btn_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="18dp"
+        android:text="@string/sign_up_label"
+        tools:context=".PersonalAgentLoginActivity"
+        android:clickable="true"
+        android:onClick="handleForgotPassword"
+         android:textColor="#0b84aa"
+        /
+    -->
+
+
+    <!-- android:padding="@dimen/padding_medium" -->
+
+    <TextView
+        android:id="@+id/response"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignLeft="@+id/rememberPasswordSwitch"
+        android:layout_below="@+id/rememberPasswordSwitch"
+        android:layout_marginTop="6dp"
+        android:text="@string/response_message" />
+
+    <Button
+        android:id="@+id/signInButton"
+        android:layout_width="282dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/signUpLabel"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/button_states"
+        android:onClick="handleLogin"
+        android:padding="20dp"
+        android:text="@string/sign_in_button_label"
+        android:textAppearance="@style/TextAppearance.Sherlock.Widget.ActionBar.Title" />
+
+    <!--
+        TextView
+        android:id="@+id/forgotPasswordLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="18dp"
+        android:padding="@dimen/padding_medium"
+        android:layout_below="@+id/signUpLabel"
+        android:text="@string/sign_up_label"
+        tools:context=".PersonalAgentLoginActivity"
+        android:clickable="true"
+        android:onClick="handleForgotPasswordSignup"
+         android:textColor="#0b84aa"
+    -->
+
+</RelativeLayout>

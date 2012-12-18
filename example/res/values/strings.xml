@@ -6,6 +6,27 @@
     <string name="menu_settings">Settings</string>
     <string name="menu_settings2">Settings</string>
 
+    <!-- NEW VALUES -->
+
+    <string name="sign_up_label">Sign UP</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="sign_in_control_label">Sign In to Control your data</string>
+    <string name="email_label">Email</string>
+    <string name="sign_in_button_label">Sign In</string>
+    <string name="forgot_password_button_label">Sign In</string>
+    <string name="password">Password</string>
+    <string name="remember_password_label">Remember Password</string>
+    <string name="response_message"></string>
+    <string name="title_activity_register">RegisterActivity</string>
+    <string name="enter_info_below_label">Enter information,  to Sign Up </string>
+    <string name="name_label">Name</string>
+    <string name="password_label">Password</string>
+    <string name="password_repeat">Repeat Password</string>
+    <string name="link_login_already_have_account">Already Have Account?  Sign IN</string>
+
+    <color name="greenlight">#91CB86</color>
+    <color name="green">#00ff00</color>
+
     <drawable name="switch_chooser_background">#185a5a5a</drawable>
 
 </resources>
